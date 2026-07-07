@@ -5,13 +5,13 @@ provider "aws" {
 module "network" {
   source = "../../modules/vpc-simple"
 
-  environment          = var.environment
-  owner                = var.owner
-  vpc_cidr             = var.vpc_cidr
-  public_subnet_cidr   = var.public_subnet_cidr
-  private_subnet_cidr  = var.private_subnet_cidr
-  availability_zone    = var.availability_zone
-  allowed_ssh_cidr      = var.allowed_ssh_cidr
+  environment         = var.environment
+  owner               = var.owner
+  vpc_cidr            = var.vpc_cidr
+  public_subnet_cidr  = var.public_subnet_cidr
+  private_subnet_cidr = var.private_subnet_cidr
+  availability_zone   = var.availability_zone
+  allowed_ssh_cidr    = var.allowed_ssh_cidr
 
   tags = {
     Project = "iac-final-aws"
