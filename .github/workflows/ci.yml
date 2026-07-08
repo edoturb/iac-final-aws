@@ -91,6 +91,9 @@ jobs:
 
       - name: Terraform Plan
         id: plan
+        env:
+          TF_VAR_allowed_ssh_cidr: ${{ secrets.ALLOWED_SSH_CIDR }}
+          TF_VAR_owner: ${{ secrets.TF_OWNER }}
         run: terraform plan -no-color -out=tfplan
         working-directory: ${{ env.TF_WORKING_DIR }}
         continue-on-error: true
