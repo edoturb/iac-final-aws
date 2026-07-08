@@ -8,7 +8,7 @@ import future.keywords.in
 
 resources_needing_tags := {"aws_instance", "aws_vpc", "aws_security_group"}
 
-deny[msg] {
+deny contains msg if {
   some address, rc in input.resource_changes
   rc.type in resources_needing_tags
   action := rc.change.actions

@@ -2,7 +2,7 @@ package terraform.policies.deny_open_ssh
 
 # IL2.3 - Prueba que valida que la politica efectivamente detecta un
 # security group mal configurado (SSH abierto a todo internet).
-test_deny_ssh_open_to_world {
+test_deny_ssh_open_to_world if {
   count(deny) > 0 with input as {
     "resource_changes": [{
       "address": "aws_security_group.bad_example",
@@ -23,7 +23,7 @@ test_deny_ssh_open_to_world {
 
 # Prueba que valida que un SG bien configurado (SSH restringido) NO es
 # rechazado por la politica (evita falsos positivos).
-test_allow_ssh_restricted {
+test_allow_ssh_restricted if {
   count(deny) == 0 with input as {
     "resource_changes": [{
       "address": "aws_security_group.good_example",

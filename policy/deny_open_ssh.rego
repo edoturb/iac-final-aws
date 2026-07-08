@@ -7,7 +7,7 @@ import future.keywords.in
 # ejecuta en el pipeline y bloquea el merge/apply si falla (gate de
 # aprobación automatizado basado en politicas).
 
-deny[msg] {
+deny contains msg if {
   some address, rc in input.resource_changes
   rc.type == "aws_security_group"
   action := rc.change.actions
