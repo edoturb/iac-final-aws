@@ -1,5 +1,7 @@
 package terraform.policies.deny_open_ssh
 
+import rego.v1
+
 # IL2.2 / IL2.3 - Sistema de permisos automatizado: deniega cualquier
 # security group que exponga el puerto 22 a 0.0.0.0/0.
 

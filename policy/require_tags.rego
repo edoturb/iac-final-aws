@@ -1,5 +1,7 @@
 package terraform.policies.require_tags
 
+import rego.v1
+
 # IL2.1 - Politica de cumplimiento: todo recurso "taggeable" debe tener
 # las etiquetas Environment y Owner.
 

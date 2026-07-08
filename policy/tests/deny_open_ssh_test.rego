@@ -1,5 +1,7 @@
 package terraform.policies.deny_open_ssh
 
+import rego.v1
+
 test_deny_ssh_open_to_world if {
 	count(deny) > 0 with input as {
 		"resource_changes": [{
