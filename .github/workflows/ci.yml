@@ -42,6 +42,8 @@ jobs:
         uses: terraform-linters/setup-tflint@v4
 
       - name: Run TFLint
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           tflint --init
           tflint --recursive
