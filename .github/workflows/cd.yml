@@ -1,0 +1,44 @@
+name: CD - Deploy to AWS
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "environments/**"
+      - "modules/**"
+
+permissions:
+  contents: read
+
+jobs:
+  apply:
+    name: Terraform Apply (dev)
+    runs-on: ubuntu-latest
+    environment: production-approval
+    env:
+      TF_WORKING_DIR: environments/dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ${{ env.TF_WORKING_DIR }}
+
+      - name: Terraform Apply
+        env:
+          TF_VAR_allowed_ssh_cidr: ${{ secrets.ALLOWED_SSH_CIDR }}
+          TF_VAR_owner: ${{ secrets.TF_OWNER }}
+        run: terraform apply -auto-approve
+        working-directory: ${{ env.TF_WORKING_DIR }}
