@@ -3,5 +3,6 @@ output "vpc_id" {
 }
 
 output "instance_public_ip" {
-  value = aws_instance.demo.public_ip
+  description = "IP publica fija (Elastic IP) de la instancia demo."
+  value       = aws_eip.demo.public_ip
 }
