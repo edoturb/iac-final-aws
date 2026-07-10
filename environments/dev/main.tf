@@ -41,3 +41,19 @@ resource "aws_instance" "demo" {
     ManagedBy   = "terraform"
   }
 }
+
+# IL4.2 - Optimizacion: una Elastic IP fija evita que la IP publica cambie
+# cada vez que la instancia se detiene/reinicia (comportamiento por defecto
+# de una IP publica dinamica en AWS), eliminando la necesidad de
+# reconfigurar accesos externos (DNS, whitelists, etc.) tras cada reinicio.
+resource "aws_eip" "demo" {
+  instance = aws_instance.demo.id
+  domain   = "vpc"
+
+  tags = {
+    Name        = "${var.environment}-demo-eip"
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "terraform"
+  }
+}
