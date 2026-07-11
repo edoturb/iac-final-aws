@@ -1,8 +1,9 @@
 # Evaluación Final Transversal – Infraestructura como Código II (AUY1105)
 
-**Estudiante:** [tu nombre]
-**Repositorio del módulo (Terraform Registry):** [pegar link cuando esté publicado]
-**Repositorio de este proyecto:** [pegar link de GitHub]
+**Estudiante:** Eduardo Urbina
+**Repositorio de este proyecto:** https://github.com/edoturb/iac-final-aws
+**Repositorio del módulo:** https://github.com/edoturb/terraform-aws-vpc-simple
+**Módulo en Terraform Registry:** [confirmar y pegar aquí el link exacto de la evidencia #8]
 
 ---
 
@@ -114,9 +115,101 @@ que ajustar, qué aprendiste.]
 
 ## 6. Anexos
 
-- **GitHub Repository:** [link a este repositorio]
-- **Terraform Registry:** [link al módulo publicado, ej. `https://registry.terraform.io/modules/<usuario>/vpc-simple/aws/1.0.0`]
-- **Evidencia (capturas):** ver carpeta `docs/evidencia/`
+- **GitHub Repository (proyecto):** https://github.com/edoturb/iac-final-aws
+- **GitHub Repository (módulo):** https://github.com/edoturb/terraform-aws-vpc-simple
+- **Terraform Registry:** [confirmar y pegar aquí el link exacto — visible en la evidencia #8 abajo]
+- **Evidencia (capturas):** ver carpeta `docs/evidencia/` y sección 7 a continuación
+
+## 7. Evidencia
+
+Capturas del proceso completo de implementación, en orden cronológico.
+
+### 7.1 Preparación del entorno y control de versiones
+
+**Cuenta AWS activa y conectada** (AWS Academy Learner Lab, credenciales STS
+verificadas con `aws sts get-caller-identity`):
+
+![Cuenta AWS activa](docs/evidencia/01-cuenta-aws-activa.png)
+
+**Creación del repositorio en GitHub** para el proyecto consolidado:
+
+![Creación repositorio GitHub](docs/evidencia/02-creacion-repositorio-github.png)
+
+### 7.2 Módulo Terraform reutilizable (IL3.1, IL3.2, IL3.3)
+
+**Push inicial del módulo `vpc-simple`** a su repositorio independiente
+`terraform-aws-vpc-simple` (requisito del Terraform Registry: el módulo debe
+vivir en su propio repo público):
+
+![Push inicial del módulo](docs/evidencia/03-push-inicial-modulo-vpc-simple.png)
+
+**Estructura publicada del repositorio del módulo** (main.tf, variables.tf,
+outputs.tf, README.md con documentación de uso — IL3.1 / IL3.2):
+
+![Estructura del repositorio del módulo](docs/evidencia/04-repositorio-terraform-aws-vpc-simple.png)
+
+**Versionado semántico — tag `v1.0.0` publicado** (IL3.3):
+
+![Tag v1.0.0 publicado en GitHub](docs/evidencia/06-versionado-semantico-tag-v1.0.0.png)
+
+**Comandos de versionado semántico en terminal** (`git tag v1.0.0` / `git push origin v1.0.0`):
+
+![Versionado semántico desde terminal](docs/evidencia/07-versionado-semantico-terminal.png)
+
+**Módulo publicado en el Terraform Registry** — evidencia formal del anexo
+obligatorio de la pauta:
+
+![Módulo publicado en Terraform Registry](docs/evidencia/08-modulo-publicado-terraform-registry.png)
+
+### 7.3 Políticas de seguridad como código (IL2.1, IL2.2, IL2.3)
+
+**Política de seguridad implementada** (`deny_open_ssh.rego` — deniega
+security groups con el puerto 22 abierto a `0.0.0.0/0`):
+
+![Política de seguridad](docs/evidencia/05-politica-de-seguridad.png)
+
+### 7.4 Análisis estático de código (IL1.2)
+
+**TFLint corriendo en el pipeline de CI**, validando buenas prácticas de
+codificación Terraform:
+
+![TFLint en CI](docs/evidencia/09-tflint-en-ci.png)
+
+**Checkov corriendo en el pipeline**, evaluando vulnerabilidades y
+desviaciones de configuración segura:
+
+![Checkov en CI](docs/evidencia/10-checkov.png)
+
+### 7.5 Flujo de revisión de código vía Pull Request (IL1.1)
+
+**Comentario de revisión documentado en el PR**, explicando el motivo del
+cambio y la sugerencia técnica aplicada:
+
+![Comentario de revisión en PR](docs/evidencia/11-comentario-revision-pr.png)
+
+**Pull Request mergeado** — flujo completo de revisión de código: rama →
+PR → checks de CI en verde → aprobación → merge a `main`:
+
+![Pull Request mergeado](docs/evidencia/12-pull-request-mergeado.png)
+
+### 7.6 Despliegue de infraestructura en AWS
+
+**`terraform plan` exitoso** — 8 recursos a crear, 0 errores, confirmando
+que el diseño de la solución es válido antes de tocar la nube:
+
+![Terraform plan exitoso](docs/evidencia/13-terraform-plan-exitoso.png)
+
+**`terraform apply` exitoso** — infraestructura efectivamente creada en AWS:
+
+![Terraform apply exitoso](docs/evidencia/14-terraform-apply-exitoso.png)
+
+**VPC desplegada, vista desde la consola de AWS**:
+
+![VPC desplegada en consola AWS](docs/evidencia/15-vpc-desplegada-consola.png)
+
+**Instancia EC2 desplegada dentro de la subred pública**:
+
+![Instancia EC2 desplegada](docs/evidencia/16-ec2-instancia-desplegada.png)
 
 ---
 
